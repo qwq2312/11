@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="springboot.dao.PostsDao">
+
+    <resultMap type="springboot.entity.PostsEntity" id="postsMap">
+        <result property="id" column="id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="postingAddress" column="posting_address"/>
+        <result property="picture" column="picture"/>
+        <result property="postTitle" column="post_title"/>
+        <result property="postContent" column="post_content"/>
+        <result property="isPublished" column="is_published"/>
+        <result property="isApproved" column="is_approved"/>
+        <result property="userid" column="userid"/>
+        <result property="addtime" column="addtime"/>
+        <result property="username" column="username"/>
+    </resultMap>
+
+</mapper>

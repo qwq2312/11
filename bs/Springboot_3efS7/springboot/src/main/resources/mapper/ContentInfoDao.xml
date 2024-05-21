@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="springboot.dao.ContentInfoDao">
+
+    <resultMap type="springboot.entity.ContentInfoEntity" id="contentInfoMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="photoUrl" column="photo_url"/>
+        <result property="readcount" column="readcount"/>
+        <result property="createTime" column="create_time"/>
+        <result property="source" column="source"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="enable" column="enable"/>
+        <result property="sort" column="sort"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="content" column="content"/>
+        <result property="desinfo" column="desinfo"/>
+        <result property="sourceUrl" column="source_url"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="slider" column="slider"/>
+        <result property="userId" column="user_id"/>
+        <result property="processingTime" column="processing_time"/>
+        <result property="afterProcess" column="after_process"/>
+    </resultMap>
+    <select id="selectValue" resultType="java.util.Map">
+        SELECT ${params.xColumn}, sum(${params.yColumn}) total FROM content_info
+        <where>${ew.sqlSegment}</where>
+        group by ${params.xColumn}
+        limit 10
+    </select>
+    <select id="selectTimeStatValue" resultType="java.util.Map">
+        <if test='params.timeStatType == "日"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m-%d') ${params.xColumn}, sum(${params.yColumn}) content_info FROM
+            content_info
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m-%d')
+        </if>
+        <if test='params.timeStatType == "月"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m') ${params.xColumn}, sum(${params.yColumn}) content_info FROM
+            content_info
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m')
+        </if>
+        <if test='params.timeStatType == "年"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y') ${params.xColumn}, sum(${params.yColumn}) content_info FROM
+            content_info
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y')
+        </if>
+        order by ${params.xColumn}
+    </select>
+    <select id="selectGroup" resultType="java.util.Map">
+        SELECT ${params.column} , count(1) content_info FROM content_info
+        <where>${ew.sqlSegment}</where>
+        group by ${params.column}
+        limit 10
+    </select>
+</mapper>

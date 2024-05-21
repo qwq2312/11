@@ -1,0 +1,48 @@
+server:
+  port: 7004
+config:
+  database:
+    # JDBC驱动类名，根据数据库类型自行修改
+    db-driver-class: com.mysql.cj.jdbc.Driver
+    # 数据库类型
+    db-type: mysql
+    # 数据库连接主机
+    db-host: 127.0.0.1
+    # 数据库端口
+    db-port: 3306
+    # 数据库登录账号
+    db-username: root
+    # 数据库登录密码
+    db-password: root
+    # 数据库名
+    db-name: P92G1
+spring:
+  redis:
+    # Redis连接主机
+    host: 127.0.0.1
+    # Redis连接端口
+    port: 6379
+    # Redis登录密码；如果没有设置密码，请注释掉下面这行，避免向 Redis-server 发送 AUTH 鉴权请求，引发程序启动失败
+    password:
+    # Redis数据库序号
+    database: 8
+    timeout: 10s
+    lettuce:
+      pool:
+        # 连接池最大连接数
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+  mail:
+    host: smtp.163.com
+    username: qwgh666@163.com
+    password: HKZJHAVNLGRDNZIG
+    default-encoding: utf-8
+mybatis-plus:
+  configuration:
+    # 生产环境下建议去除该配置项，不在控制台打印SQL
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

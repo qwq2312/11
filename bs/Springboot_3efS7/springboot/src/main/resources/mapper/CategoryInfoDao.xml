@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="springboot.dao.CategoryInfoDao">
+
+    <resultMap type="springboot.entity.CategoryInfoEntity" id="categoryInfoMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="paixu" column="paixu"/>
+        <result property="queryUrl" column="query_url"/>
+        <result property="addtime" column="addtime"/>
+    </resultMap>
+
+</mapper>

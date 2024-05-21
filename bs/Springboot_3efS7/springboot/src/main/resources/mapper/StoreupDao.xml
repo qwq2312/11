@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="springboot.dao.StoreupDao">
+
+    <resultMap type="springboot.entity.StoreupEntity" id="storeupMap">
+        <result property="id" column="id"/>
+        <result property="addtime" column="addtime"/>
+        <result property="userid" column="userid"/>
+        <result property="refid" column="refid"/>
+        <result property="tablename" column="tablename"/>
+        <result property="name" column="name"/>
+        <result property="picture" column="picture"/>
+        <result property="type" column="type"/>
+        <result property="inteltype" column="inteltype"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    <select id="selectAll" resultType="springboot.vo.StoreupVO">
+        select *
+        from storeup
+        order by addtime desc
+    </select>
+    <select id="selectValue" resultType="java.util.Map">
+        SELECT ${params.xColumn}, count(${params.yColumn}) total FROM storeup
+        <where>${ew.sqlSegment}</where>
+        group by ${params.xColumn}
+        limit 100
+    </select>
+    <select id="selectTimeStatValue" resultType="java.util.Map">
+        <if test='params.timeStatType == "日"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m-%d') ${params.xColumn}, sum(${params.yColumn}) storeup
+            FROM
+            storeup
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m-%d')
+        </if>
+        <if test='params.timeStatType == "月"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y-%m') ${params.xColumn}, sum(${params.yColumn}) storeup FROM
+            storeup
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y-%m')
+        </if>
+        <if test='params.timeStatType == "年"'>
+            SELECT DATE_FORMAT(${params.xColumn},'%Y') ${params.xColumn}, sum(${params.yColumn}) storeup FROM
+            storeup
+            <where>${ew.sqlSegment}</where>
+            group by DATE_FORMAT(${params.xColumn},'%Y')
+        </if>
+        order by ${params.xColumn}
+    </select>
+    <select id="selectGroup" resultType="java.util.Map">
+        SELECT ${params.column} , count(1) storeup FROM storeup
+        <where>${ew.sqlSegment}</where>
+        group by ${params.column}
+        limit 10
+    </select>
+
+</mapper>

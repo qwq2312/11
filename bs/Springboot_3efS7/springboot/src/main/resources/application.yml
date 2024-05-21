@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: spring-boot
+  profiles:
+    # 可通过命令行参数实现多环境切换配置文件
+    active: dev
+  datasource:
+    driver-class-name: ${config.database.db-driver-class}
+    username: ${config.database.db-username}
+    password: ${config.database.db-password}
+    url: jdbc:${config.database.db-type}://${config.database.db-host}:${config.database.db-port}/${config.database.db-name}?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+  cache:
+    type: redis
+    redis:
+      cache-null-values: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    generator:
+      write_numbers_as_strings: true
+mybatis-plus:
+  # XML扫描，支持统配符 * 或者 , 分割
+  mapper-locations: classpath*:/mapper/*.xml
+storage:
+  enabled: true
+  config:
+    type: local
+    domain: api
+  local:
+    path: upload
+xss:
+  enabled: true
+captcha:
+  captchaEnabled: true
+  # 验证码类型 math 数字计算 char 字符验证
+  captchaType: math
+netty:
+  server:
+    port: 10087
+logging:
+  level:
+    # 指定日志级别，开发、测试环境建议为 DEBUG，生产环境建议为 INFO
+    cc.uncarbon: DEBUG
+# 详细配置文档：https://sa-token.cc/doc.html#/use/config
+sa-token:
+  # token名称
+  token-name: Authorization
+  # token风格
+  token-style: tik
+  # 是否允许同一账号并发登录
+  is-concurrent: false
+  # 打印banner
+  is-print: false
+  # 是否尝试从请求体里读取token
+  is-read-body: false
+  # 是否尝试从cookie里读取token
+  # 有效期解释：https://sa-token.cc/doc.html#/fun/token-timeout
+  # token 有效期，单位=秒；默认30天，-1代表永不过期
+  timeout: 2592000
+  # token临时有效期 [指定时间内无操作就视为token过期] (单位: 秒), 默认-1 代表不限制
+  active-timeout: 1800
+  is-log: true
+  is-read-header: true
